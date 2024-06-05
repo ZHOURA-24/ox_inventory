@@ -23,6 +23,9 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
       setPage((prev) => ++prev);
     }
   }, [entry]);
+
+  const oneToFive = useMemo(() => inventory.items.slice(0, 5), [inventory.items]);
+
   return (
     <>
       <div className="inventory-grid-wrapper" style={{ pointerEvents: isBusy ? 'none' : 'auto' }}>
@@ -39,8 +42,9 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
         </div>
         <div className="inventory-grid-container" ref={containerRef}>
           <>
-            {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => (
-              <InventorySlot
+            {inventory.items.slice(0, (page + 1) * PAGE_SIZE).map((item, index) => {
+              if (inventory.type === "player" && index < 5) return;
+              return <InventorySlot
                 key={`${inventory.type}-${inventory.id}-${item.slot}`}
                 item={item}
                 ref={index === (page + 1) * PAGE_SIZE - 1 ? ref : null}
@@ -48,8 +52,21 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
                 inventoryGroups={inventory.groups}
                 inventoryId={inventory.id}
               />
-            ))}
+            })}
           </>
+        </div>
+        <div className='inventory-player-hot-slot'>
+          {inventory.type === "player" && <div className="inventory-player-hot-slot-container">
+            {oneToFive.map((item) => (
+              <InventorySlot
+                key={`${inventory.type}-${inventory.id}-${item.slot}`}
+                item={item}
+                inventoryType={inventory.type}
+                inventoryGroups={inventory.groups}
+                inventoryId={inventory.id}
+              />
+            ))}
+          </div>}
         </div>
       </div>
     </>

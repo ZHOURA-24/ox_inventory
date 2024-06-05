@@ -1,8 +1,8 @@
-$mainColor: #22232c;
+$mainColor: #051e04;
 $textColor: #c1c2c5;
 $mainFont: Roboto;
 
-$secondaryColor: rgba(12, 12, 12, 0.4);
+$secondaryColor: rgb(9, 9, 9);
 $secondaryColorHighlight: #33343F;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
 $secondaryColorDark: rgba(12, 12, 12, 0.8);
@@ -12,6 +12,9 @@ $gridRows: 5;
 $gridSize: 10.2vh;
 $gridGap: 2px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+
+$borderColor : rgba(17, 255, 0, 0.5);
+$borderRadius: 10%;
 
 body {
   margin: 0;
@@ -70,7 +73,7 @@ input[type='number']::-webkit-outer-spin-button {
   flex-direction: column;
 }
 
-.context-menu-item  {
+.context-menu-item {
   padding: 8px;
   border-radius: 4px;
   background-color: transparent;
@@ -80,9 +83,11 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   &:active {
     transform: none;
   }
+
   &:hover {
     background-color: $secondaryColorHighlight;
     cursor: pointer;
@@ -93,7 +98,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding-top: 5px;
 }
 
-.tooltip-markdown > p {
+.tooltip-markdown>p {
   margin: 0;
 }
 
@@ -117,7 +122,7 @@ button:active {
 
 .inventory-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -139,7 +144,7 @@ button:active {
   .inventory-control-input {
     transition: 200ms;
     padding: 16px 8px;
-    border-radius: 2.5%;
+    border-radius: 1vh;
     font-family: $mainFont;
     font-size: 16px;
     text-align: center;
@@ -147,6 +152,8 @@ button:active {
     border: none;
     color: #fff;
     background-color: $secondaryColor;
+    border: 1px solid $borderColor;
+
     &:focus-within {
       background-color: $secondaryColorDark;
     }
@@ -158,12 +165,14 @@ button:active {
     background-color: $secondaryColor;
     transition: 200ms;
     padding: 12px 8px;
-    border-radius: 2.5%;
+    border-radius: 1vh;
     border: none;
     text-transform: uppercase;
     font-family: $mainFont;
     width: 100%;
     font-weight: 500;
+    border: 1px solid $borderColor;
+
     &:hover {
       background-color: $secondaryColorDark;
     }
@@ -206,6 +215,7 @@ button:active {
   align-items: center;
   border-radius: 4px;
   fill: $textColor;
+
   &:hover {
     background-color: $secondaryColorHighlight;
     cursor: pointer;
@@ -239,6 +249,7 @@ button:active {
   fill: white;
   border-radius: 5% !important;
   background-color: $secondaryColor !important;
+
   &:hover {
     background-color: $secondaryColorDark !important;
     cursor: pointer;
@@ -262,10 +273,12 @@ button:active {
   flex-direction: column;
   gap: calc($gridGap * 2);
 }
+
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   p {
     font-size: 16px;
   }
@@ -290,20 +303,21 @@ button:active {
   position: relative;
   background-size: 7vh;
   color: $textColor;
-  border-color: rgba(0, 0, 0, 0.2);
+  border-color: $borderColor;
   border-style: inset;
-  border-width: 1px;
+  border-width: 2px;
+  border-radius: $borderRadius;
 }
 
 .inventory-slot-label-box {
   background-color: $mainColor;
   color: $textColor;
   text-align: center;
-  border-bottom-left-radius: 0.25vh;
-  border-bottom-right-radius: 0.25vh;
-  border-top-color: rgba(0, 0, 0, 0.2);
-  border-top-style: inset;
+  border-color: $borderColor;
+  border-top-style: solid;
   border-top-width: 1px;
+  border-bottom-left-radius: $borderRadius + 2%;
+  border-bottom-right-radius: $borderRadius + 2%;
 }
 
 .inventory-slot-label-text {
@@ -333,6 +347,7 @@ button:active {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
   p {
     font-size: 12px;
   }
@@ -355,6 +370,7 @@ button:active {
   align-self: flex-end;
   padding: 3px;
   gap: 3px;
+
   p {
     font-size: 12px;
   }
@@ -366,6 +382,7 @@ button:active {
   justify-content: flex-end;
   align-items: center;
   padding-right: 3px;
+
   p {
     font-size: 14px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
@@ -377,6 +394,7 @@ button:active {
   flex-direction: row;
   justify-content: flex-end;
   padding-right: 3px;
+
   p {
     font-size: 14px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
@@ -398,6 +416,7 @@ button:active {
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+
   p {
     font-size: 12px;
     font-weight: 400;
@@ -409,6 +428,7 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   p {
     font-size: 15px;
     font-weight: 400;
@@ -420,9 +440,11 @@ button:active {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   svg {
     padding-right: 3px;
   }
+
   p {
     font-size: 14px;
   }
@@ -436,6 +458,7 @@ button:active {
   display: flex;
   flex-direction: row;
   align-items: center;
+
   img {
     width: 28px;
     height: 28px;
@@ -490,6 +513,7 @@ button:active {
   border-top-left-radius: 0.25vh;
   border-top-right-radius: 0.25vh;
   font-family: $mainFont;
+
   p {
     font-size: 11px;
     padding: 2px;
@@ -551,4 +575,19 @@ button:active {
 .transition-slide-up-exit-active {
   transform: translateY(200px);
   transition: all 200ms;
+}
+
+.inventory-player-hot-slot {
+  position: absolute;
+  top: 10vh;
+  right: 5vh;
+}
+
+.inventory-player-hot-slot-container {
+  display: grid;
+  height: $containerSize;
+  grid-template-rows: repeat($gridCols, $gridSize);
+  grid-auto-rows: $gridSize + 0.22vh;
+  gap: $gridGap;
+  overflow-y: scroll;
 }
