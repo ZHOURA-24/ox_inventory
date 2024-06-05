@@ -14,10 +14,9 @@ const colorMixer = (rgbA: number[], rgbB: number[], amountToMix: number) => {
 };
 
 const COLORS = {
-  // Colors used - https://materialui.co/flatuicolors
-  primaryColor: [231, 76, 60], // Red (Pomegranate)
-  secondColor: [39, 174, 96], // Green (Nephritis)
-  accentColor: [211, 84, 0], // Orange (Oragne)
+  primaryColor: [192, 57, 43],
+  secondColor: [231, 76, 60],
+  accentColor: [244, 108, 82],
 };
 
 const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
@@ -28,23 +27,39 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
           ? colorMixer(COLORS.accentColor, COLORS.primaryColor, percent / 100)
           : colorMixer(COLORS.secondColor, COLORS.accentColor, percent / 100)
         : percent > 50
-        ? colorMixer(COLORS.primaryColor, COLORS.accentColor, percent / 100)
-        : colorMixer(COLORS.accentColor, COLORS.secondColor, percent / 50),
+          ? colorMixer(COLORS.primaryColor, COLORS.accentColor, percent / 100)
+          : colorMixer(COLORS.accentColor, COLORS.secondColor, percent / 50),
     [durability, percent]
   );
 
+  const segments = useMemo(() => {
+    const totalSegments = 10;
+    const filledSegments = Math.round((percent / 100) * totalSegments);
+    return Array.from({ length: totalSegments }, (_, index) => index < filledSegments);
+  }, [percent]);
+
   return (
     <div className={durability ? 'durability-bar' : 'weight-bar'}>
-      <div
-        style={{
-          visibility: percent > 0 ? 'visible' : 'hidden',
-          height: '100%',
-          width: `${percent}%`,
-          backgroundColor: color,
-          transition: `background ${0.3}s ease, width ${0.3}s ease`,
-        }}
-      ></div>
+      {!durability && segments.map((filled, index) => (
+        <div
+          key={index}
+          className={`weight-bar-segment ${filled ? 'filled' : ''}`}
+          style={{ backgroundColor: filled ? color : 'transparent' }}
+        />
+      ))}
+      {durability && (
+        <div
+          style={{
+            visibility: percent > 0 ? 'visible' : 'hidden',
+            height: '100%',
+            width: `${percent}%`,
+            backgroundColor: color,
+            transition: `background ${0.3}s ease, width ${0.3}s ease`,
+          }}
+        />
+      )}
     </div>
   );
 };
+
 export default WeightBar;

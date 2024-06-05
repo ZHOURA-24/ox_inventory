@@ -6,8 +6,10 @@ import { DragSource } from '../../typings';
 import { onUse } from '../../dnd/onUse';
 import { onGive } from '../../dnd/onGive';
 import { fetchNui } from '../../utils/fetchNui';
-import { Locale } from '../../store/locale';
 import UsefulControls from './UsefulControls';
+
+import { FaHandHoldingMedical, FaHandsWash } from "react-icons/fa";
+import { IoIosClose } from "react-icons/io";
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -48,13 +50,13 @@ const InventoryControl: React.FC = () => {
             min={0}
           />
           <button className="inventory-control-button" ref={use}>
-            {Locale.ui_use || 'Use'}
+            <FaHandsWash size={30} />
           </button>
           <button className="inventory-control-button" ref={give}>
-            {Locale.ui_give || 'Give'}
+            <FaHandHoldingMedical size={30} />
           </button>
           <button className="inventory-control-button" onClick={() => fetchNui('exit')}>
-            {Locale.ui_close || 'Close'}
+            <IoIosClose size={30} />
           </button>
         </div>
       </div>

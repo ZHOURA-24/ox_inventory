@@ -5,6 +5,8 @@ import InventorySlot from './InventorySlot';
 import { getTotalWeight } from '../../helpers';
 import { useAppSelector } from '../../store';
 import { useIntersection } from '../../hooks/useIntersection';
+import { MdInventory } from "react-icons/md";
+import { FaUser, FaWeightHanging } from 'react-icons/fa';
 
 const PAGE_SIZE = 30;
 
@@ -24,21 +26,30 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
     }
   }, [entry]);
 
-  const oneToFive = useMemo(() => inventory.items.slice(0, 5), [inventory.items]);
-
   return (
     <>
       <div className="inventory-grid-wrapper" style={{ pointerEvents: isBusy ? 'none' : 'auto' }}>
-        <div>
+        <div className='inventory-grid-header'>
           <div className="inventory-grid-header-wrapper">
-            <p>{inventory.label}</p>
+            <p
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+            >
+              {
+                inventory.type === "player"
+                  ? <FaUser color='#02ff41' size={18} />
+                  : <MdInventory color='#02ff41' size={18} />
+              }
+              {inventory.label} {inventory.id}
+            </p>
             {inventory.maxWeight && (
-              <p>
+              <p
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+              >
+                <FaWeightHanging color='#02ff41' size={18} />
                 {weight / 1000}/{inventory.maxWeight / 1000}kg
               </p>
             )}
           </div>
-          <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
         </div>
         <div className="inventory-grid-container" ref={containerRef}>
           <>
@@ -55,19 +66,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
             })}
           </>
         </div>
-        <div className='inventory-player-hot-slot'>
-          {inventory.type === "player" && <div className="inventory-player-hot-slot-container">
-            {oneToFive.map((item) => (
-              <InventorySlot
-                key={`${inventory.type}-${inventory.id}-${item.slot}`}
-                item={item}
-                inventoryType={inventory.type}
-                inventoryGroups={inventory.groups}
-                inventoryId={inventory.id}
-              />
-            ))}
-          </div>}
-        </div>
+        <WeightBar percent={inventory.maxWeight ? (weight / inventory.maxWeight) * 100 : 0} />
       </div>
     </>
   );
