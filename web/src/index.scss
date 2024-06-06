@@ -602,25 +602,19 @@ button:active {
 }
 
 .inventory-player-hot-slot {
-  width: fit-content;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding-left: 20px;
 }
 
 .inventory-player-hot-slot-container {
   display: grid;
   height: fit-content;
-  grid-template-rows: repeat($gridCols, $gridSize );
-  grid-auto-rows: $gridSize + 0.22vh;
-  gap: $gridGap + 20px;
-  width: 80px;
+  grid-template-rows: repeat($gridCols, $gridSize);
+  grid-template-columns: repeat(1, $gridSize);
+  gap: $gridGap * 20;
+  overflow-y: scroll;
   background-color: $secondaryColor;
-  border-radius: 1vh;
   padding: 1.4vh;
+  border-radius: calc($borderRadius / 5);
 }
 
 .weight-bar {
