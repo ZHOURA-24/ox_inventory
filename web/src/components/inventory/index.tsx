@@ -47,8 +47,14 @@ const Inventory: React.FC = () => {
         <div className="inventory-wrapper">
           <HotSlot />
           <InventoryControl />
-          <LeftInventory />
-          <RightInventory />
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '2vh',
+          }}>
+            <LeftInventory />
+            <RightInventory />
+          </div>
           <Tooltip />
           <InventoryContext />
         </div>

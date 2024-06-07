@@ -130,7 +130,8 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
           !canPurchaseItem(item, { type: inventoryType, groups: inventoryGroups }) || !canCraftItem(item, inventoryType)
             ? 'brightness(80%) grayscale(100%)'
             : undefined,
-        opacity: (isDragging || !isSlotWithItem(item)) ? 0.4 : 1.0,
+        opacity: (isDragging || !isSlotWithItem(item)) ? 0.5 : 1.0,
+        backgroundColor: isSlotWithItem(item) ? 'rgba(0,0,0,1)' : '',
         backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
         border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
       }}

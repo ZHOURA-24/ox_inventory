@@ -6,7 +6,8 @@ import { getTotalWeight } from '../../helpers';
 import { useAppSelector } from '../../store';
 import { useIntersection } from '../../hooks/useIntersection';
 import { MdInventory } from "react-icons/md";
-import { FaUser, FaWeightHanging } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
+import { GiWeight } from "react-icons/gi";
 
 const PAGE_SIZE = 30;
 
@@ -32,20 +33,28 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
         <div className='inventory-grid-header'>
           <div className="inventory-grid-header-wrapper">
             <p
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px", border: "2px inset #02ff41", padding: "0px 10px 0px 10px" }}
             >
               {
                 inventory.type === "player"
-                  ? <FaUser color='#02ff41' size={18} />
-                  : <MdInventory color='#02ff41' size={18} />
+                  ? (<div className='icon-wrapper'>
+                    <FaUser size={18} />
+                  </div>)
+                  : (
+                    <div className='icon-wrapper'>
+                      <MdInventory size={18} />
+                    </div>
+                  )
               }
               {inventory.label} {inventory.id}
             </p>
             {inventory.maxWeight && (
               <p
-                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "5px", border: "2px inset #02ff41", padding: "0px 10px 0px 10px" }}
               >
-                <FaWeightHanging color='#02ff41' size={18} />
+                <div className='icon-wrapper'>
+                  <GiWeight size={18} />
+                </div>
                 {weight / 1000}/{inventory.maxWeight / 1000}kg
               </p>
             )}
